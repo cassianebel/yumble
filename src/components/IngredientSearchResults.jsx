@@ -1,26 +1,24 @@
 import { useEffect, useState, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
-import SearchForm from "./SearchForm";
+import IngredientSearchForm from "./IngredientSearchForm";
 
-const SearchResults = () => {
+const IngredientSearchResults = () => {
   const [results, setResults] = useState([]);
-  const [totalResults, setTotalResults] = useState(0);
+  const [displayedResults, setDisplayedResults] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
   const params = useMemo(
     () => new URLSearchParams(location.search),
     [location.search]
   );
-  const query = params.get("q");
-  const diets = useMemo(() => params.get("diet")?.split(",") || [], [params]);
-  const currentPage = parseInt(params.get("page")) || 1;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const ingredients = params.get("ingredients");
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-    const offset = (currentPage - 1) * 10;
-    const dietParam = diets.length > 0 ? `&diet=${diets.join(",")}` : "";
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&offset=${offset}${dietParam}&apiKey=${apiKey}`;
+    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=100&apiKey=${apiKey}`;
 
     fetch(url)
       .then((response) => {
@@ -33,25 +31,32 @@ const SearchResults = () => {
         return response.json();
       })
       .then((data) => {
-        setResults(data.results);
-        setTotalResults(data.totalResults);
+        setResults(data);
         console.log("Recipe data:", data);
       })
       .catch((error) => console.error("Fetch error:", error));
-  }, [query, currentPage, diets]);
+  }, [ingredients]);
 
-  const totalPages = Math.ceil(totalResults / 10);
+  useEffect(() => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    setDisplayedResults(results.slice(indexOfFirstItem, indexOfLastItem));
+  }, [results, currentPage]);
+
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(results.length / itemsPerPage);
 
   const goToPage = (page) => {
-    navigate(`?q=${query}&page=${page}`);
+    setSearchParams({ ingredients, page });
+    navigate(`?ingredients=${ingredients}&page=${page}`);
   };
 
   return (
     <div>
-      <SearchForm prevQuery={query} prevDiets={diets} />
+      <IngredientSearchForm prevIngredients={ingredients} />
       <h2>Search Results</h2>
       <div className="flex flex-wrap gap-4">
-        {results.map((recipe) => (
+        {displayedResults.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
@@ -82,4 +87,4 @@ const SearchResults = () => {
   );
 };
 
-export default SearchResults;
+export default IngredientSearchResults;

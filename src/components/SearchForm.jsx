@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchForm = () => {
-  const [query, setQuery] = useState("");
-  const [diets, setDiets] = useState([]);
+const SearchForm = ({ prevQuery, prevDiets }) => {
+  const [query, setQuery] = useState(prevQuery || "");
+  const [diets, setDiets] = useState(prevDiets || []);
   const navigate = useNavigate();
 
   const dietChoices = [
