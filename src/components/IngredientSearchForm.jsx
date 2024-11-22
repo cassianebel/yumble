@@ -9,7 +9,9 @@ const IngredientSearchForm = ({ prevIngredients }) => {
     e.preventDefault();
     if (ingredients.trim()) {
       navigate(
-        `/searchbyingredients?ingredients=${encodeURIComponent(ingredients)}`
+        `/searchbyingredients?ingredients=${encodeURIComponent(
+          ingredients.replace(/ /g, "")
+        )}`
       );
     }
   };

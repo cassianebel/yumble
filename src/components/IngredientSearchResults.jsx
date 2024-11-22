@@ -48,7 +48,6 @@ const IngredientSearchResults = () => {
 
   const goToPage = (page) => {
     setSearchParams({ ingredients, page });
-    navigate(`?ingredients=${ingredients}&page=${page}`);
   };
 
   return (
