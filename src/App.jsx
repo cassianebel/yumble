@@ -2,8 +2,9 @@ import { Route, Routes, Navigate, NavLink } from "react-router-dom";
 import Home from "./components/Home";
 import RecipePage from "./components/RecipePage";
 import SearchResults from "./components/SearchResults";
-import "./App.css";
 import IngredientSearchResults from "./components/IngredientSearchResults";
+import NutrientSearchResults from "./components/NutrientSearchResults";
+import "./App.css";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           path="/searchbyingredients"
           element={<IngredientSearchResults />}
         />
+        <Route path="/searchbynutrients" element={<NutrientSearchResults />} />
       </Routes>
     </>
   );

@@ -1,9 +1,9 @@
 import { useEffect, useState, useMemo } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
-import IngredientSearchForm from "./IngredientSearchForm";
+import NutrientSearchForm from "./NutrientSearchForm";
 
-const IngredientSearchResults = () => {
+const NutrientSearchResults = () => {
   const [results, setResults] = useState([]);
   const [displayedResults, setDisplayedResults] = useState([]);
   const location = useLocation();
@@ -13,11 +13,23 @@ const IngredientSearchResults = () => {
   );
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
-  const ingredients = params.get("ingredients");
+  const calories = useMemo(
+    () => searchParams.get("calories").split(","),
+    [searchParams]
+  );
+  const carbs = useMemo(
+    () => searchParams.get("carbs").split(","),
+    [searchParams]
+  );
+  const protein = useMemo(
+    () => searchParams.get("protein").split(","),
+    [searchParams]
+  );
+  const fat = useMemo(() => searchParams.get("fat").split(","), [searchParams]);
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=100&apiKey=${apiKey}`;
+    const url = `https://api.spoonacular.com/recipes/findByNutrients?minCalories=${calories[0]}&maxCalories=${calories[1]}&minCarbs=${carbs[0]}&maxCarbs=${carbs[1]}&minProtein=${protein[0]}&maxProtein=${protein[1]}&minFat=${fat[0]}&maxFat=${fat[1]}&number=100&apiKey=${apiKey}`;
 
     fetch(url)
       .then((response) => {
@@ -34,7 +46,7 @@ const IngredientSearchResults = () => {
         console.log("Recipe data:", data);
       })
       .catch((error) => console.error("Fetch error:", error));
-  }, [ingredients]);
+  }, [calories, carbs, protein, fat]);
 
   useEffect(() => {
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -46,12 +58,17 @@ const IngredientSearchResults = () => {
   const totalPages = Math.ceil(results.length / itemsPerPage);
 
   const goToPage = (page) => {
-    setSearchParams({ ingredients, page });
+    setSearchParams({ calories, carbs, protein, fat, page });
   };
 
   return (
     <div>
-      <IngredientSearchForm prevIngredients={ingredients} />
+      <NutrientSearchForm
+        prevCalories={calories}
+        prevCarbs={carbs}
+        prevProtein={protein}
+        prevFat={fat}
+      />
       <h2>Search Results</h2>
       <div className="flex flex-wrap gap-4">
         {displayedResults.map((recipe) => (
@@ -85,4 +102,4 @@ const IngredientSearchResults = () => {
   );
 };
 
-export default IngredientSearchResults;
+export default NutrientSearchResults;

@@ -1,6 +1,7 @@
 import RandomRecipes from "./randomRecipes";
 import SearchForm from "./SearchForm";
 import IngredientSearchForm from "./IngredientSearchForm";
+import NutrientSearchForm from "./NutrientSearchForm";
 
 const Home = () => {
   return (
@@ -12,7 +13,12 @@ const Home = () => {
         <IngredientSearchForm />
       </div>
       <div className="p-10">
-        <RandomRecipes />
+        <NutrientSearchForm />
+      </div>
+      <div className="p-10">
+        {
+          // <RandomRecipes />
+        }
       </div>
     </div>
   );
