@@ -16,10 +16,10 @@ const RangeSlider = ({ min, max, step, initialValues, onValuesChange }) => {
       connect: true,
       range: { min, max },
       step,
-      tooltips: [
-        { to: (value) => Math.round(value), from: (value) => Number(value) },
-        { to: (value) => Math.round(value), from: (value) => Number(value) },
-      ],
+      // tooltips: [
+      //   { to: (value) => Math.round(value), from: (value) => Number(value) },
+      //   { to: (value) => Math.round(value), from: (value) => Number(value) },
+      // ],
     });
 
     const noUiSliderInstance = slider.noUiSlider;
@@ -58,13 +58,14 @@ const RangeSlider = ({ min, max, step, initialValues, onValuesChange }) => {
   return (
     <div>
       <div ref={sliderRef}></div>
-      <div>
+      <div className="m-3 mb-10">
         <label>
           Min:
           <input
             type="number"
             value={values[0]}
             onChange={(e) => handleInputChange(0, e.target.value)}
+            className="w-20 p-1 rounded-sm mx-2"
           />
         </label>
         <label>
@@ -73,6 +74,7 @@ const RangeSlider = ({ min, max, step, initialValues, onValuesChange }) => {
             type="number"
             value={values[1]}
             onChange={(e) => handleInputChange(1, e.target.value)}
+            className="w-20 p-1 rounded-sm mx-2"
           />
         </label>
       </div>

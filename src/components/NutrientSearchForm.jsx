@@ -9,10 +9,10 @@ const NutrientSearchForm = ({
   prevFat,
   prevProtein,
 }) => {
-  const [calorieValues, setCalorieValues] = useState(prevCalories || [20, 800]);
-  const [carbValues, setCarbValues] = useState(prevCarbs || [0, 200]);
-  const [proteinValues, setProteinValues] = useState(prevProtein || [0, 200]);
-  const [fatValues, setFatValues] = useState(prevFat || [0, 200]);
+  const [calorieValues, setCalorieValues] = useState(prevCalories || [0, 500]);
+  const [carbValues, setCarbValues] = useState(prevCarbs || [0, 50]);
+  const [proteinValues, setProteinValues] = useState(prevProtein || [0, 50]);
+  const [fatValues, setFatValues] = useState(prevFat || [0, 50]);
   const navigate = useNavigate();
 
   const handleCalorieChange = useCallback((values) => {
@@ -52,37 +52,45 @@ const NutrientSearchForm = ({
       className="text-center bg-zinc-200 rounded-2xl p-5"
     >
       <fieldset>
-        <legend>Calories</legend>
+        <legend className="m-3">
+          Calories <span className="text-xs text-zinc-600">(kcals)</span>
+        </legend>
         <RangeSlider
           min={0}
-          max={2000}
+          max={1000}
           step={1}
           initialValues={calorieValues}
           onValuesChange={handleCalorieChange}
         />
       </fieldset>
       <fieldset>
-        <legend>Carbs</legend>
+        <legend className="m-3">
+          Carbs <span className="text-xs text-zinc-600">(grams)</span>
+        </legend>
         <RangeSlider
           min={0}
-          max={300}
+          max={100}
           step={1}
           initialValues={carbValues}
           onValuesChange={handleCarbChange}
         />
       </fieldset>
       <fieldset>
-        <legend>Protein</legend>
+        <legend className="m-3">
+          Protein <span className="text-xs text-zinc-600">(grams)</span>
+        </legend>
         <RangeSlider
           min={0}
-          max={200}
+          max={100}
           step={1}
           initialValues={proteinValues}
           onValuesChange={handleProteinChange}
         />
       </fieldset>
       <fieldset>
-        <legend>Fat</legend>
+        <legend className="m-3">
+          Fat <span className="text-xs text-zinc-600">(grams)</span>
+        </legend>
         <RangeSlider
           min={0}
           max={100}
