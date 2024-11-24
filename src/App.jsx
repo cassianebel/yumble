@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate, NavLink } from "react-router-dom";
+import { Route, Routes, NavLink } from "react-router-dom";
 import Home from "./components/Home";
 import RecipePage from "./components/RecipePage";
 import SearchResults from "./components/SearchResults";
@@ -9,6 +9,14 @@ import "./App.css";
 function App() {
   return (
     <>
+      <header className="">
+        <NavLink
+          to="/"
+          className="inline-block titan-one-regular text-apple-400 text-2xl m-2 rotate-[-6deg] hover:rotate-0 transition-all duration-200 ease-in-out"
+        >
+          yumble
+        </NavLink>
+      </header>
       <main className="">
         <Routes>
           <Route path="/" element={<Home />} />

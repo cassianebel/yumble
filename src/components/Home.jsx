@@ -86,9 +86,9 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="m-5">
+      {/* <div className="m-5">
         <RandomRecipes />
-      </div>
+      </div> */}
     </div>
   );
 };
