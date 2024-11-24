@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import RangeSlider from "./RangeSlider";
 import { useNavigate } from "react-router-dom";
+import SearchButton from "./SearchButton";
 
 const NutrientSearchForm = ({
   prevCalories,
@@ -46,7 +47,10 @@ const NutrientSearchForm = ({
   };
 
   return (
-    <form onSubmit={handleSearch}>
+    <form
+      onSubmit={handleSearch}
+      className="text-center bg-zinc-200 rounded-2xl p-5"
+    >
       <fieldset>
         <legend>Calories</legend>
         <RangeSlider
@@ -87,7 +91,7 @@ const NutrientSearchForm = ({
           onValuesChange={handleFatChange}
         />
       </fieldset>
-      <button type="submit">Search</button>
+      <SearchButton />
     </form>
   );
 };

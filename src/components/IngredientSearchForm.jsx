@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SearchInput from "./SearchInput";
+import SearchButton from "./SearchButton";
 
 const IngredientSearchForm = ({ prevIngredients }) => {
   const [ingredients, setIngredients] = useState(prevIngredients || "");
@@ -17,18 +19,23 @@ const IngredientSearchForm = ({ prevIngredients }) => {
   };
 
   return (
-    <form onSubmit={handleSearch}>
-      <label htmlFor="ingredients">
-        Enter ingredients you have on hand or want to cook with
+    <form
+      onSubmit={handleSearch}
+      className="text-center bg-zinc-200 rounded-2xl p-5"
+    >
+      <label
+        htmlFor="ingredients"
+        className="text-center my-2 text-sm text-zinc-500"
+      >
+        Enter the ingredients you want to cook with
       </label>
-      <input
-        type="text"
-        placeholder="apples,flour,sugar,..."
-        value={ingredients}
-        onChange={(e) => setIngredients(e.target.value)}
+      <SearchInput
         name="ingredients"
+        query={ingredients}
+        setQuery={setIngredients}
+        placeholder="apples, flour, sugar..."
       />
-      <button type="submit">Search</button>
+      <SearchButton />
     </form>
   );
 };

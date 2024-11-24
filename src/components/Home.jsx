@@ -6,18 +6,18 @@ import NutrientSearchForm from "./NutrientSearchForm";
 const Home = () => {
   return (
     <div>
-      <div className="p-10">
+      <div className="m-5">
         <SearchForm />
       </div>
-      <div className="p-10">
+      <div className="m-5">
         <IngredientSearchForm />
       </div>
-      <div className="p-10">
+      <div className="m-5">
         <NutrientSearchForm />
       </div>
-      <div className="p-10">
+      <div className="m-5">
         {
-          // <RandomRecipes />
+          //<RandomRecipes />
         }
       </div>
     </div>

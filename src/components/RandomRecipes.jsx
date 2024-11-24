@@ -6,7 +6,7 @@ const RandomRecipes = () => {
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-    const url = `https://api.spoonacular.com/recipes/random?number=10&apiKey=${apiKey}`;
+    const url = `https://api.spoonacular.com/recipes/random?number=20&apiKey=${apiKey}`;
 
     fetch(url)
       .then((response) => {

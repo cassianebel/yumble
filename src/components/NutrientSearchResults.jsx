@@ -73,7 +73,7 @@ const NutrientSearchResults = () => {
         prevFat={fat}
       />
       <h2>Search Results</h2>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-6">
         {displayedResults.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}

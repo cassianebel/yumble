@@ -10,16 +10,21 @@ function App() {
   return (
     <>
       <header>Yumble</header>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/recipe/:recipeId" element={<RecipePage />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route
-          path="/searchbyingredients"
-          element={<IngredientSearchResults />}
-        />
-        <Route path="/searchbynutrients" element={<NutrientSearchResults />} />
-      </Routes>
+      <main className="bg-gradient-to-t from-zinc-950 to-zinc-800 py-10">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/recipe/:recipeId" element={<RecipePage />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route
+            path="/searchbyingredients"
+            element={<IngredientSearchResults />}
+          />
+          <Route
+            path="/searchbynutrients"
+            element={<NutrientSearchResults />}
+          />
+        </Routes>
+      </main>
     </>
   );
 }

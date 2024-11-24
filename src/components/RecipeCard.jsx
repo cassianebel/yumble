@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 const RecipeCard = ({ recipe }) => {
   return (
     <NavLink to={`/recipe/${recipe.id}`}>
-      <div className="w-[150px] grow-0 shrink-0 flex-auto">
-        <img src={recipe.image} alt={recipe.title} />
-        <h3>{recipe.title}</h3>
+      <div className="min-w-[150px] max-w-[312px]">
+        <img src={recipe.image} alt={recipe.title} className="" />
+        <h3 className="m-1">{recipe.title}</h3>
       </div>
     </NavLink>
   );
