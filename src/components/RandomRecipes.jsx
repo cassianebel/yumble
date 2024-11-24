@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
+import {
+  IoIosArrowDroprightCircle,
+  IoIosArrowDropleftCircle,
+} from "react-icons/io";
 
 const RandomRecipes = () => {
   const [randomRecipes, setRandomRecipes] = useState([]);
@@ -43,24 +47,24 @@ const RandomRecipes = () => {
       <h2>Random Recipes</h2>
       <div className="flex items-center overflow-hidden relative w-full">
         <button
-          className="absolute flex items-center justify-center left-0"
+          className="hidden absolute md:flex items-center justify-center left-0 text-3xl text-apple-400 rounded-full p-2"
           onClick={scrollLeft}
         >
-          ←
+          <IoIosArrowDropleftCircle />
         </button>
         <div
           id="randomRecipeRow"
-          className="flex gap-4 overflow-x-auto scroll-smooth m-10"
+          className="flex gap-6 overflow-x-auto scroll-smooth p-4 md:mx-14"
         >
           {randomRecipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </div>
         <button
-          className="absolute flex items-center justify-center right-0"
+          className="hidden absolute md:flex items-center justify-center right-0 text-3xl text-apple-400 rounded-full p-2"
           onClick={scrollRight}
         >
-          →
+          <IoIosArrowDroprightCircle />
         </button>
       </div>
     </div>

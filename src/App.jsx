@@ -9,8 +9,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <header>Yumble</header>
-      <main className="py-10">
+      <main className="">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/recipe/:recipeId" element={<RecipePage />} />

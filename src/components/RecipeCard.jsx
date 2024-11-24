@@ -2,10 +2,19 @@ import { NavLink } from "react-router-dom";
 
 const RecipeCard = ({ recipe }) => {
   return (
-    <NavLink to={`/recipe/${recipe.id}`}>
-      <div className="min-w-[150px] max-w-[312px]">
-        <img src={recipe.image} alt={recipe.title} className="" />
-        <h3 className="m-1">{recipe.title}</h3>
+    <NavLink
+      to={`/recipe/${recipe.id}`}
+      className="min-w-[212px] max-w-[312px] bg-zinc-100 rounded-xl pb-1 h-full hover:scale-105 focus:scale-105 focus:outline-none focus:border-2 focus:border-apple-400 transition-all duration-300 ease-in-out"
+    >
+      <div className=" ">
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          className="rounded-xl rounded-b-none"
+        />
+        <h3 className="m-2 text-sm text-zinc-800 text-center text-balance">
+          {recipe.title}
+        </h3>
       </div>
     </NavLink>
   );
