@@ -51,6 +51,9 @@ const NutrientSearchForm = ({
       onSubmit={handleSearch}
       className="text-center bg-zinc-200 rounded-2xl p-5"
     >
+      <p className="text-center my-2 mb-4 text-sm text-zinc-600 text-balance">
+        Adjust the values to fit your macro nutrient goals
+      </p>
       <fieldset>
         <legend className="m-3">
           Calories <span className="text-xs text-zinc-600">(kcals)</span>

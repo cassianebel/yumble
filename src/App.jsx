@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <header>Yumble</header>
-      <main className="bg-gradient-to-t from-zinc-950 to-zinc-800 py-10">
+      <main className="py-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/recipe/:recipeId" element={<RecipePage />} />

@@ -25,7 +25,7 @@ const IngredientSearchForm = ({ prevIngredients }) => {
     >
       <label
         htmlFor="ingredients"
-        className="text-center my-2 text-sm text-zinc-500"
+        className="text-center my-2 text-sm text-zinc-600"
       >
         Enter the ingredients you want to cook with
       </label>

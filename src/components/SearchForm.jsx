@@ -54,7 +54,7 @@ const SearchForm = ({ prevQuery, prevDiets }) => {
       />
 
       <fieldset>
-        <legend className="text-center my-2 text-sm text-zinc-500">
+        <legend className="text-center my-2 text-sm text-zinc-600 text-balance">
           Optional: Choose one or more diets to narrow your search
         </legend>
         <div className="flex justify-center items-center flex-wrap">
