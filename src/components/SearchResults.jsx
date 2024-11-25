@@ -1,11 +1,13 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
 import SearchForm from "./SearchForm";
+import Pagination from "./Pagination";
 
 const SearchResults = () => {
   const [results, setResults] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
+  const resultsRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
   const params = useMemo(
@@ -35,7 +37,12 @@ const SearchResults = () => {
       .then((data) => {
         setResults(data.results);
         setTotalResults(data.totalResults);
-        console.log("Recipe data:", data);
+        if (resultsRef.current) {
+          resultsRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
       })
       .catch((error) => console.error("Fetch error:", error));
   }, [query, currentPage, diets]);
@@ -43,7 +50,11 @@ const SearchResults = () => {
   const totalPages = Math.ceil(totalResults / 10);
 
   const goToPage = (page) => {
-    navigate(`?q=${query}&${dietParam}&page=${page}`);
+    navigate(`?q=${query}${dietParam}&page=${page}`);
+    resultsRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
@@ -51,41 +62,22 @@ const SearchResults = () => {
       <div className="m-5 max-w-xl md:mx-auto">
         <SearchForm prevQuery={query} prevDiets={diets} />
       </div>
-      <h2>Search Results</h2>
-      <div className="flex flex-wrap gap-6 justify-center max-w-[1700px] mx-auto">
+      <h2 className="sr-only">Search Results</h2>
+      <div
+        ref={resultsRef}
+        className="flex flex-wrap gap-6 justify-center max-w-[1700px] mx-auto"
+      >
         {results.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
-      <div className="flex gap-3 justify-center m-6">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="bg-zinc-300 h-10 px-4 rounded-md"
-        >
-          Previous
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => goToPage(index + 1)}
-            className={
-              currentPage === index + 1
-                ? "bg-apple-300 w-10 h-10 rounded-md"
-                : "bg-zinc-300 w-10 h-10 rounded-md"
-            }
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="bg-zinc-300 h-10 px-4 rounded-md"
-        >
-          Next
-        </button>
-      </div>
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          goToPage={goToPage}
+        />
+      )}
     </div>
   );
 };

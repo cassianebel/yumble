@@ -1,12 +1,14 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
 import NutrientSearchForm from "./NutrientSearchForm";
+import Pagination from "./Pagination";
 
 const NutrientSearchResults = () => {
   const [results, setResults] = useState([]);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const resultsRef = useRef(null);
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const calories = useMemo(
     () => searchParams.get("calories").split(","),
@@ -39,7 +41,12 @@ const NutrientSearchResults = () => {
       })
       .then((data) => {
         setResults(data);
-        console.log("Recipe data:", data);
+        if (resultsRef.current) {
+          resultsRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
       })
       .catch((error) => console.error("Fetch error:", error));
   }, [calories, carbs, protein, fat]);
@@ -54,7 +61,6 @@ const NutrientSearchResults = () => {
   const totalPages = Math.ceil(results.length / itemsPerPage);
 
   const goToPage = (page) => {
-    console.log(calories, carbs, protein, fat);
     setSearchParams({
       calories: calories.join(","),
       carbs: carbs.join(","),
@@ -62,45 +68,35 @@ const NutrientSearchResults = () => {
       fat: fat.join(","),
       page,
     });
+    resultsRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
     <div>
-      <NutrientSearchForm
-        prevCalories={calories}
-        prevCarbs={carbs}
-        prevProtein={protein}
-        prevFat={fat}
-      />
-      <h2>Search Results</h2>
-      <div className="flex flex-wrap gap-6">
+      <div className="m-5 max-w-xl md:mx-auto">
+        <NutrientSearchForm
+          prevCalories={calories}
+          prevCarbs={carbs}
+          prevProtein={protein}
+          prevFat={fat}
+        />
+      </div>
+      <h2 className="sr-only">Search Results</h2>
+      <div ref={resultsRef} className="flex flex-wrap gap-6">
         {displayedResults.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
-      <div className="flex gap-4">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => goToPage(index + 1)}
-            className={currentPage === index + 1 ? "active" : ""}
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          goToPage={goToPage}
+        />
+      )}
     </div>
   );
 };

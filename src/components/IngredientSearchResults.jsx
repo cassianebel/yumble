@@ -1,11 +1,13 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
 import IngredientSearchForm from "./IngredientSearchForm";
+import Pagination from "./Pagination";
 
 const IngredientSearchResults = () => {
   const [results, setResults] = useState([]);
   const [displayedResults, setDisplayedResults] = useState([]);
+  const resultsRef = useRef(null);
   const location = useLocation();
   const params = useMemo(
     () => new URLSearchParams(location.search),
@@ -31,7 +33,12 @@ const IngredientSearchResults = () => {
       })
       .then((data) => {
         setResults(data);
-        console.log("Recipe data:", data);
+        if (resultsRef.current) {
+          resultsRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
       })
       .catch((error) => console.error("Fetch error:", error));
   }, [ingredients]);
@@ -47,40 +54,30 @@ const IngredientSearchResults = () => {
 
   const goToPage = (page) => {
     setSearchParams({ ingredients, page });
+    resultsRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
     <div>
-      <IngredientSearchForm prevIngredients={ingredients} />
-      <h2>Search Results</h2>
-      <div className="flex flex-wrap gap-4">
+      <div className="m-5 max-w-xl md:mx-auto">
+        <IngredientSearchForm prevIngredients={ingredients} />
+      </div>
+      <h2 className="sr-only">Search Results</h2>
+      <div ref={resultsRef} className="flex flex-wrap gap-4">
         {displayedResults.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
-      <div className="flex gap-4">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => goToPage(index + 1)}
-            className={currentPage === index + 1 ? "active" : ""}
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          goToPage={goToPage}
+        />
+      )}
     </div>
   );
 };
