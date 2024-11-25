@@ -2,6 +2,13 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ['"Reddit Sans"', "Roboto", "Helvetica", "Arial", "sans-serif"],
+      serif: ["ui-serif", "Georgia"],
+      mono: ["ui-monospace", "SFMono-Regular"],
+      display: ['"Titan One"', '"Reddit Sans"'],
+      body: ['"Reddit Sans"'],
+    },
     extend: {
       colors: {
         apple: {

@@ -14,12 +14,12 @@ const SearchResults = () => {
   );
   const query = params.get("q");
   const diets = useMemo(() => params.get("diet")?.split(",") || [], [params]);
+  const dietParam = diets.length > 0 ? `&diet=${diets.join(",")}` : "";
   const currentPage = parseInt(params.get("page")) || 1;
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
     const offset = (currentPage - 1) * 10;
-    const dietParam = diets.length > 0 ? `&diet=${diets.join(",")}` : "";
     const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&offset=${offset}${dietParam}&apiKey=${apiKey}`;
 
     fetch(url)
@@ -43,22 +43,25 @@ const SearchResults = () => {
   const totalPages = Math.ceil(totalResults / 10);
 
   const goToPage = (page) => {
-    navigate(`?q=${query}&page=${page}`);
+    navigate(`?q=${query}&${dietParam}&page=${page}`);
   };
 
   return (
     <div>
-      <SearchForm prevQuery={query} prevDiets={diets} />
+      <div className="m-5 max-w-xl md:mx-auto">
+        <SearchForm prevQuery={query} prevDiets={diets} />
+      </div>
       <h2>Search Results</h2>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-6 justify-center max-w-[1700px] mx-auto">
         {results.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-3 justify-center m-6">
         <button
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage === 1}
+          className="bg-zinc-300 h-10 px-4 rounded-md"
         >
           Previous
         </button>
@@ -66,7 +69,11 @@ const SearchResults = () => {
           <button
             key={index + 1}
             onClick={() => goToPage(index + 1)}
-            className={currentPage === index + 1 ? "active" : ""}
+            className={
+              currentPage === index + 1
+                ? "bg-apple-300 w-10 h-10 rounded-md"
+                : "bg-zinc-300 w-10 h-10 rounded-md"
+            }
           >
             {index + 1}
           </button>
@@ -74,6 +81,7 @@ const SearchResults = () => {
         <button
           onClick={() => goToPage(currentPage + 1)}
           disabled={currentPage === totalPages}
+          className="bg-zinc-300 h-10 px-4 rounded-md"
         >
           Next
         </button>
