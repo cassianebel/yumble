@@ -12,7 +12,7 @@ function App() {
       <header className="">
         <NavLink
           to="/"
-          className="inline-block font-display text-apple-400 drop-shadow-md text-2xl m-2 rotate-[-6deg] hover:rotate-0 transition-all duration-200 ease-in-out"
+          className="inline-block font-display text-apple-700 text-3xl m-2 rotate-[-6deg] hover:rotate-0 transition-all duration-200 ease-in-out"
         >
           yumble
         </NavLink>

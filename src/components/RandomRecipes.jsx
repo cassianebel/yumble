@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import RecipeCard from "./RecipeCard";
+import SmallRecipeCard from "./SmallRecipeCard";
 import {
   IoIosArrowDroprightCircle,
   IoIosArrowDropleftCircle,
@@ -44,7 +44,7 @@ const RandomRecipes = () => {
 
   return (
     <div>
-      <h2>Random Recipes</h2>
+      <h2 className="font-display text-2xl text-zinc-900">Random Recipes</h2>
       <div className="flex items-center overflow-hidden relative w-full">
         <button
           className="hidden absolute md:flex items-center justify-center left-0 text-3xl text-apple-400 rounded-full p-2"
@@ -57,7 +57,7 @@ const RandomRecipes = () => {
           className="flex gap-6 overflow-x-auto scroll-smooth p-4 md:mx-14"
         >
           {randomRecipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <SmallRecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </div>
         <button

@@ -75,7 +75,7 @@ const NutrientSearchResults = () => {
   };
 
   return (
-    <div>
+    <div className="lg:grid grid-cols-3">
       <div className="m-5 max-w-xl md:mx-auto">
         <NutrientSearchForm
           prevCalories={calories}
@@ -85,7 +85,10 @@ const NutrientSearchResults = () => {
         />
       </div>
       <h2 className="sr-only">Search Results</h2>
-      <div ref={resultsRef} className="flex flex-wrap gap-6">
+      <div
+        ref={resultsRef}
+        className="col-span-2 grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-[1700px] px-5 mx-auto"
+      >
         {displayedResults.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}

@@ -65,7 +65,7 @@ const SearchResults = () => {
       <h2 className="sr-only">Search Results</h2>
       <div
         ref={resultsRef}
-        className="flex flex-wrap gap-6 justify-center max-w-[1700px] mx-auto"
+        className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-[1700px] px-5 mx-auto"
       >
         {results.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
