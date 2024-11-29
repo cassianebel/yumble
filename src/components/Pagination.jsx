@@ -4,7 +4,7 @@ const Pagination = ({ currentPage, totalPages, goToPage }) => {
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="bg-zinc-300 h-10 px-4 rounded-md"
+        className="bg-zinc-100 h-10 px-4 rounded-full shadow"
       >
         Previous
       </button>
@@ -14,8 +14,8 @@ const Pagination = ({ currentPage, totalPages, goToPage }) => {
           onClick={() => goToPage(index + 1)}
           className={
             currentPage === index + 1
-              ? "bg-apple-300 w-10 h-10 rounded-md"
-              : "bg-zinc-300 w-10 h-10 rounded-md"
+              ? "bg-apple-300 w-10 h-10 rounded-full shadow-inner-sm"
+              : "bg-zinc-100 w-10 h-10 rounded-full shadow"
           }
         >
           {index + 1}
@@ -24,7 +24,7 @@ const Pagination = ({ currentPage, totalPages, goToPage }) => {
       <button
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="bg-zinc-300 h-10 px-4 rounded-md"
+        className="bg-zinc-100 h-10 px-4 rounded-full shadow"
       >
         Next
       </button>

@@ -10,10 +10,10 @@ const Home = () => {
     <div className="min-h-screen flex flex-col justify-between">
       <div>
         <form className="mt-10">
-          <fieldset className="relative grid grid-cols-3 gap-2 bg-zinc-300 shadow-inner rounded-full p-1 max-w-max mx-auto text-center border-2 border-zinc-100 focus-within:border-apple-300">
+          <fieldset className="relative grid grid-cols-3 gap-2 bg-zinc-300 shadow-inner rounded-full p-1 max-w-max mx-auto text-center border-2 border-zinc-200 focus-within:border-apple-300">
             <legend className="sr-only">Choose your method of search</legend>
             <div
-              className="absolute top-1 w-[113px] h-[36px] bg-zinc-50 shadow-md rounded-full transition-all duration-300 ease-in-out"
+              className="absolute top-1 w-[113px] h-[36px] bg-zinc-50 shadow rounded-full transition-all duration-300 ease-in-out"
               style={
                 tab === "ingredients"
                   ? { left: 125 }
@@ -34,7 +34,7 @@ const Home = () => {
               />
               <label
                 htmlFor="tab-diet"
-                className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase peer-checked:text-apple-700 transition-all duration-300"
+                className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase text-zinc-600 peer-checked:text-apple-700 transition-all duration-300"
               >
                 Diets
               </label>
@@ -51,7 +51,7 @@ const Home = () => {
               />
               <label
                 htmlFor="tab-ingredients"
-                className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase peer-checked:text-apple-600 transition-all duration-300"
+                className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase text-zinc-600 peer-checked:text-apple-600 transition-all duration-300"
               >
                 Ingredients
               </label>
@@ -68,7 +68,7 @@ const Home = () => {
               />
               <label
                 htmlFor="tab-nutrients"
-                className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase peer-checked:text-apple-600 transition-all duration-300"
+                className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase text-zinc-600 peer-checked:text-apple-600 transition-all duration-300"
               >
                 Nutrients
               </label>
