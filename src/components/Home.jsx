@@ -13,7 +13,7 @@ const Home = () => {
           <fieldset className="relative grid grid-cols-3 gap-2 bg-zinc-300 shadow-inner rounded-full p-1 max-w-max mx-auto text-center border-2 border-zinc-200 focus-within:border-apple-300">
             <legend className="sr-only">Choose your method of search</legend>
             <div
-              className="absolute top-1 w-[113px] h-[36px] bg-zinc-50 shadow rounded-full transition-all duration-300 ease-in-out"
+              className="absolute top-1 w-[113px] h-[36px] bg-zinc-100 shadow rounded-full transition-all duration-300 ease-in-out"
               style={
                 tab === "ingredients"
                   ? { left: 125 }

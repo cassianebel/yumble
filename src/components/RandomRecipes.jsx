@@ -44,10 +44,10 @@ const RandomRecipes = () => {
 
   return (
     <div>
-      <h2 className="font-display text-2xl text-zinc-900">Random Recipes</h2>
+      <h2 className="font-display text-2xl text-zinc-700">Random Recipes</h2>
       <div className="flex items-center overflow-hidden relative w-full">
         <button
-          className="hidden absolute md:flex items-center justify-center left-0 text-3xl text-apple-400 rounded-full p-2"
+          className="hidden absolute md:flex items-center justify-center left-0 text-3xl text-apple-500 rounded-full m-2 border-2 focus:outline-none  focus:border-apple-300 focus:scale-110"
           onClick={scrollLeft}
         >
           <IoIosArrowDropleftCircle />
@@ -61,7 +61,7 @@ const RandomRecipes = () => {
           ))}
         </div>
         <button
-          className="hidden absolute md:flex items-center justify-center right-0 text-3xl text-apple-400 rounded-full p-2"
+          className="hidden absolute md:flex items-center justify-center right-0 text-3xl text-apple-500 rounded-full m-2 border-2 focus:outline-none  focus:border-apple-300 focus:scale-110"
           onClick={scrollRight}
         >
           <IoIosArrowDroprightCircle />
