@@ -5,6 +5,7 @@ import NutrientSearchForm from "./NutrientSearchForm";
 import Pagination from "./Pagination";
 
 const NutrientSearchResults = () => {
+  const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,6 +42,7 @@ const NutrientSearchResults = () => {
       })
       .then((data) => {
         setResults(data);
+        setLoading(false);
         if (resultsRef.current) {
           resultsRef.current.scrollIntoView({
             behavior: "smooth",
@@ -75,7 +77,7 @@ const NutrientSearchResults = () => {
   };
 
   return (
-    <div className="lg:grid grid-cols-3">
+    <>
       <div className="m-5 max-w-xl md:mx-auto">
         <NutrientSearchForm
           prevCalories={calories}
@@ -85,14 +87,24 @@ const NutrientSearchResults = () => {
         />
       </div>
       <h2 className="sr-only">Search Results</h2>
-      <div
-        ref={resultsRef}
-        className="col-span-2 grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-[1700px] px-5 mx-auto"
-      >
-        {displayedResults.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="mt-10 flex justify-center items-center">
+          <div className="dot-hourglass">Loading...</div>
+        </div>
+      ) : results.length === 0 ? (
+        <div>
+          <p className="text-center">No results found.</p>
+        </div>
+      ) : (
+        <div
+          ref={resultsRef}
+          className="col-span-2 grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-[1700px] px-5 mx-auto"
+        >
+          {displayedResults.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))}
+        </div>
+      )}
       {totalPages > 1 && (
         <Pagination
           currentPage={currentPage}
@@ -100,7 +112,7 @@ const NutrientSearchResults = () => {
           goToPage={goToPage}
         />
       )}
-    </div>
+    </>
   );
 };
 

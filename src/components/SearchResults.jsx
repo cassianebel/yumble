@@ -5,8 +5,9 @@ import SearchForm from "./SearchForm";
 import Pagination from "./Pagination";
 
 const SearchResults = () => {
+  const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
-  const [totalResults, setTotalResults] = useState(0);
+  const [totalResults, setTotalResults] = useState(null);
   const resultsRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ const SearchResults = () => {
       .then((data) => {
         setResults(data.results);
         setTotalResults(data.totalResults);
+        setLoading(false);
         if (resultsRef.current) {
           resultsRef.current.scrollIntoView({
             behavior: "smooth",
@@ -63,20 +65,32 @@ const SearchResults = () => {
         <SearchForm prevQuery={query} prevDiets={diets} />
       </div>
       <h2 className="sr-only">Search Results</h2>
-      <div
-        ref={resultsRef}
-        className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-[1700px] px-5 mx-auto"
-      >
-        {results.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
-      {totalPages > 1 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          goToPage={goToPage}
-        />
+      {loading ? (
+        <div className="mt-10 flex justify-center items-center">
+          <div className="dot-hourglass">Loading...</div>
+        </div>
+      ) : totalResults === 0 ? (
+        <div>
+          <p className="text-center">No results found.</p>
+        </div>
+      ) : (
+        <>
+          <div
+            ref={resultsRef}
+            className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-[1700px] px-5 mx-auto"
+          >
+            {results.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </div>
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              goToPage={goToPage}
+            />
+          )}
+        </>
       )}
     </div>
   );

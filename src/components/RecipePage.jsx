@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ContentCard from "./ContentCard";
 import Stat from "./Stat";
+import { set } from "lodash";
 
 const RecipePage = () => {
+  const [loading, setLoading] = useState(true);
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({});
   const [instructions, setInstructions] = useState([]);
@@ -25,7 +27,7 @@ const RecipePage = () => {
       })
       .then((data) => {
         setRecipe(data);
-        console.log("Recipe data:", data);
+        setLoading(false);
       })
       .catch((error) => console.error("Fetch error:", error));
 
@@ -52,15 +54,16 @@ const RecipePage = () => {
     return `${hours} hours and ${remainingMinutes} minutes`;
   };
 
-  let time;
-  if (recipe.reacyInMinutes >= 60) {
-    time = convertToHours(recipe.readyInMinutes);
-  } else {
-    time = `${recipe.readyInMinutes} minutes`;
-  }
-
   const healthScore = Math.round(recipe.healthScore);
   const spoonacularScore = Math.round(recipe.spoonacularScore);
+
+  if (loading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <div className="dot-hourglass">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -74,24 +77,24 @@ const RecipePage = () => {
         </div>
         <div className="flex flex-col gap-6 justify-center items-center m-5">
           <div>
-            <ul className="flex justify-center items-center gap-4">
+            <ul className="flex flex-wrap justify-center items-center gap-4">
               {recipe.dairyFree && (
-                <li className="p-2 px-3 rounded-full uppercase font-light text-xs border bg-apple-200 border-apple-400 text-apple-800">
+                <li className="p-2 px-3 rounded-full uppercase font-light text-xs border bg-zinc-100 border-zinc-300">
                   Dairy Free
                 </li>
               )}
               {recipe.glutenFree && (
-                <li className="p-2 px-3 rounded-full uppercase font-light text-xs border bg-apple-200 border-apple-400 text-apple-800">
+                <li className="p-2 px-3 rounded-full uppercase font-light text-xs border bg-zinc-100 border-zinc-300">
                   Gluten Free
                 </li>
               )}
               {recipe.vegan && (
-                <li className="p-2 px-3 rounded-full uppercase font-light text-xs border bg-apple-200 border-apple-400 text-apple-800">
+                <li className="p-2 px-3 rounded-full uppercase font-light text-xs border bg-zinc-100 border-zinc-300">
                   Vegan
                 </li>
               )}
               {recipe.vegetarian && (
-                <li className="p-2 px-3 rounded-full uppercase font-light text-xs border bg-apple-200 border-apple-400 text-apple-800">
+                <li className="p-2 px-3 rounded-full uppercase font-light text-xs border bg-zinc-100 border-zinc-300">
                   Vegetarian
                 </li>
               )}
@@ -100,7 +103,7 @@ const RecipePage = () => {
           <h1 className="text-3xl font-display text-zinc-700 text-center text-balance">
             {recipe.title}
           </h1>
-          <p className="text-xs text-zinc-700">
+          <p className="text-xs">
             Recipe sourced from{" "}
             <a
               href={recipe.sourceUrl}
@@ -124,7 +127,7 @@ const RecipePage = () => {
             <h2 className="text-2xl font-display text-zinc-700">Ingredients</h2>
             <Stat number={recipe.servings} text="Servings" />
           </div>
-          <ul className="text-zinc-800 text-lg">
+          <ul className="text-lg">
             {recipe.extendedIngredients?.map((ingredient) => (
               <li
                 key={ingredient.id}
@@ -142,7 +145,7 @@ const RecipePage = () => {
             </h2>
             <Stat number={recipe.readyInMinutes} text="Minutes" />
           </div>
-          <ol className="list-decimal ps-4 text-zinc-800">
+          <ol className="list-decimal ps-4">
             {instructions.map((step) => (
               <li className="py-2" key={step.number}>
                 {step.step}
@@ -163,7 +166,7 @@ const RecipePage = () => {
               text="Serving Size"
             />
           </div>
-          <p className="text-zinc-800 text-sm">Amount per serving.</p>
+          <p className="text-sm">Amount per serving.</p>
           <ul>
             <li className="grid grid-cols-3 gap-2 py-2 border-b border-zinc-300 text-xs mt-auto">
               <div>NUTRIENT</div>
