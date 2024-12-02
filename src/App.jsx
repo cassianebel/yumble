@@ -9,10 +9,10 @@ import "./App.css";
 function App() {
   return (
     <>
-      <header className="absolute top-0">
+      <header className="">
         <NavLink
           to="/"
-          className="inline-block font-display text-apple-700 text-3xl m-2 px-2 rounded-full border-2 border-transparent rotate-[-6deg] hover:rotate-0 hover:text-apple-600 focus:outline-none focus:border-apple-400 focus:rotate-0 focus:text-apple-600  transition-all duration-200 ease-in-out"
+          className="inline-block font-display text-apple-500 text-3xl m-2 px-2 rounded-full border-2 border-transparent rotate-[-6deg] hover:rotate-0 hover:text-apple-400 focus:outline-none focus:border-apple-400 focus:rotate-0 focus:text-apple-400  transition-all duration-200 ease-in-out"
         >
           yumble
         </NavLink>

@@ -3,8 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
 import SearchForm from "./SearchForm";
 import Pagination from "./Pagination";
+import SearchChooser from "./SearchChooser";
+import IngredientSearchForm from "./IngredientSearchForm";
+import NutrientSearchForm from "./NutrientSearchForm";
 
 const SearchResults = () => {
+  const [tab, setTab] = useState("diet");
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
   const [totalResults, setTotalResults] = useState(null);
@@ -62,7 +66,14 @@ const SearchResults = () => {
   return (
     <div>
       <div className="m-5 max-w-xl md:mx-auto">
-        <SearchForm prevQuery={query} prevDiets={diets} />
+        <SearchChooser tab={tab} setTab={setTab} />
+        {tab === "ingredients" ? (
+          <IngredientSearchForm />
+        ) : tab === "nutrients" ? (
+          <NutrientSearchForm />
+        ) : (
+          <SearchForm prevQuery={query} prevDiets={diets} />
+        )}
       </div>
       <h2 className="sr-only">Search Results</h2>
       {loading ? (

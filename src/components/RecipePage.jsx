@@ -48,12 +48,6 @@ const RecipePage = () => {
       .catch((error) => console.error("Fetch error:", error));
   }, [recipeId]);
 
-  const convertToHours = (minutes) => {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours} hours and ${remainingMinutes} minutes`;
-  };
-
   const healthScore = Math.round(recipe.healthScore);
   const spoonacularScore = Math.round(recipe.spoonacularScore);
 
@@ -66,7 +60,7 @@ const RecipePage = () => {
   }
 
   return (
-    <>
+    <div className="max-w-7xl mx-auto">
       <div className="grid md:grid-cols-2 ">
         <div className="flex justify-center items-center md:mx-5">
           <img
@@ -113,10 +107,10 @@ const RecipePage = () => {
             </a>
           </p>
           <div className="flex justify-center items-center gap-4">
-            <Stat number={healthScore} text="Health" />
-            <Stat number={spoonacularScore} text="Rating" />
             <Stat number={recipe.servings} text="Servings" />
             <Stat number={recipe.readyInMinutes} text="Minutes" />
+            <Stat number={healthScore} text="Health" />
+            <Stat number={spoonacularScore} text="Rating" />
           </div>
         </div>
       </div>
@@ -198,7 +192,7 @@ const RecipePage = () => {
           </ul>
         </ContentCard>
       </div>
-    </>
+    </div>
   );
 };
 

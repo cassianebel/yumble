@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import RangeSlider from "./RangeSlider";
 import { useNavigate } from "react-router-dom";
+import SearchInput from "./SearchInput";
 import SearchButton from "./SearchButton";
 import ContentCard from "./ContentCard";
 
@@ -9,7 +10,9 @@ const NutrientSearchForm = ({
   prevCarbs,
   prevFat,
   prevProtein,
+  prevQuery,
 }) => {
+  const [query, setQuery] = useState(prevQuery || "");
   const [calorieValues, setCalorieValues] = useState(prevCalories || [0, 500]);
   const [carbValues, setCarbValues] = useState(prevCarbs || [0, 50]);
   const [proteinValues, setProteinValues] = useState(prevProtein || [0, 50]);
@@ -35,17 +38,23 @@ const NutrientSearchForm = ({
   const handleSearch = (event) => {
     event.preventDefault();
     navigate(
-      `/searchbynutrients?calories=${calorieValues.join(
+      `/searchbynutrients?q=${encodeURIComponent(
+        query
+      )}&calories=${calorieValues.join(",")}&carbs=${carbValues.join(
         ","
-      )}&carbs=${carbValues.join(",")}&protein=${proteinValues.join(
-        ","
-      )}&fat=${fatValues.join(",")}`
+      )}&protein=${proteinValues.join(",")}&fat=${fatValues.join(",")}`
     );
   };
 
   return (
     <ContentCard>
       <form onSubmit={handleSearch} className="text-center">
+        <SearchInput
+          name="q"
+          query={query}
+          setQuery={setQuery}
+          placeholder="Search for recipes..."
+        />
         <p className="text-center my-2 mb-4 text-sm text-zinc-600 text-balance">
           Adjust the values to fit your macro nutrient goals
         </p>
