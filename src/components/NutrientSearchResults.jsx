@@ -102,7 +102,7 @@ const NutrientSearchResults = () => {
           <SearchForm />
         )}
       </div>
-      <h2 className="sr-only">Search Results</h2>
+      <h1 className="sr-only">Search Results</h1>
       {loading ? (
         <div className="mt-10 flex justify-center items-center">
           <div className="dot-hourglass">Loading...</div>

@@ -1,12 +1,22 @@
+import { useState, useEffect } from "react";
 import { Route, Routes, NavLink } from "react-router-dom";
 import Home from "./components/Home";
 import RecipePage from "./components/RecipePage";
 import SearchResults from "./components/SearchResults";
 import IngredientSearchResults from "./components/IngredientSearchResults";
 import NutrientSearchResults from "./components/NutrientSearchResults";
+import FavoritesPage from "./components/FavoritesPage";
 import "./App.css";
 
 function App() {
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const storedFavorites =
+      JSON.parse(localStorage.getItem("yumbleFavs")) || [];
+    setFavorites(storedFavorites);
+  }, []);
+
   return (
     <>
       <header className="">
@@ -19,8 +29,16 @@ function App() {
       </header>
       <main className="mt-8">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/recipe/:recipeId" element={<RecipePage />} />
+          <Route
+            path="/"
+            element={<Home favorites={favorites} setFavorites={setFavorites} />}
+          />
+          <Route
+            path="/recipe/:recipeId"
+            element={
+              <RecipePage favorites={favorites} setFavorites={setFavorites} />
+            }
+          />
           <Route path="/search" element={<SearchResults />} />
           <Route
             path="/searchbyingredients"
@@ -29,6 +47,15 @@ function App() {
           <Route
             path="/searchbynutrients"
             element={<NutrientSearchResults />}
+          />
+          <Route
+            path="/favorites"
+            element={
+              <FavoritesPage
+                favorites={favorites}
+                setFavorites={setFavorites}
+              />
+            }
           />
         </Routes>
       </main>

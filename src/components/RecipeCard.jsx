@@ -14,9 +14,9 @@ const RecipeCard = ({ recipe }) => {
             className="rounded-xl rounded-r-none md:rounded-b-none md:rounded-xl"
           />
         </div>
-        <h3 className="ml-4 md:m-2 text-lg text-zinc-800 md:text-center text-balance">
+        <h2 className="m-4 text-lg text-zinc-800 md:text-center text-balance">
           {recipe.title}
-        </h3>
+        </h2>
       </div>
     </NavLink>
   );

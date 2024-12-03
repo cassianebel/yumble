@@ -4,8 +4,9 @@ import SearchForm from "./SearchForm";
 import IngredientSearchForm from "./IngredientSearchForm";
 import NutrientSearchForm from "./NutrientSearchForm";
 import SearchChooser from "./SearchChooser";
+import FavoritesList from "./FavoritesList";
 
-const Home = () => {
+const Home = ({ favorites, setFavorites }) => {
   const [tab, setTab] = useState("diet");
   return (
     <div className="max-w-7xl mx-auto min-h-screen flex flex-col justify-between">
@@ -21,7 +22,11 @@ const Home = () => {
           )}
         </div>
       </div>
-
+      {favorites.length > 0 && (
+        <div className="m-5">
+          <FavoritesList favorites={favorites} setFavorites={setFavorites} />
+        </div>
+      )}
       <div className="m-5 mb-20">
         <RandomRecipes />
       </div>

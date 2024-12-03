@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ContentCard from "./ContentCard";
 import Stat from "./Stat";
-import { set } from "lodash";
+import { FaRegHeart, FaHeart } from "react-icons/fa6";
 
-const RecipePage = () => {
+const RecipePage = ({ favorites, setFavorites }) => {
   const [loading, setLoading] = useState(true);
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({});
@@ -28,6 +28,7 @@ const RecipePage = () => {
       .then((data) => {
         setRecipe(data);
         setLoading(false);
+        window.scrollTo(0, 0);
       })
       .catch((error) => console.error("Fetch error:", error));
 
@@ -43,13 +44,31 @@ const RecipePage = () => {
       })
       .then((data) => {
         setInstructions(data[0].steps);
-        console.log("Instructions data:", data[0].steps);
       })
       .catch((error) => console.error("Fetch error:", error));
   }, [recipeId]);
 
   const healthScore = Math.round(recipe.healthScore);
   const spoonacularScore = Math.round(recipe.spoonacularScore);
+
+  function addFavorite() {
+    const newFavorite = {
+      id: recipe.id,
+      title: recipe.title,
+      image: recipe.image,
+    };
+    const newFavorites = [...favorites, newFavorite];
+    setFavorites(newFavorites);
+    localStorage.setItem("yumbleFavs", JSON.stringify(newFavorites));
+  }
+
+  function removeFavorite() {
+    const newFavorites = favorites.filter((fav) => fav.id !== recipe.id);
+    setFavorites(newFavorites);
+    localStorage.setItem("yumbleFavs", JSON.stringify(newFavorites));
+  }
+
+  const isFavorite = favorites.some((fav) => fav.id === recipe.id);
 
   if (loading) {
     return (
@@ -95,7 +114,22 @@ const RecipePage = () => {
             </ul>
           </div>
           <h1 className="text-3xl font-display text-zinc-700 text-center text-balance">
-            {recipe.title}
+            {recipe.title}{" "}
+            {isFavorite ? (
+              <button
+                onClick={removeFavorite}
+                className="text-apple-500 text-2xl hover:text-apple-400 hover:scale-110 transition-all duration-300 ease-in-out"
+              >
+                <FaHeart />
+              </button>
+            ) : (
+              <button
+                onClick={addFavorite}
+                className="text-apple-500 text-2xl hover:text-apple-400 hover:scale-110 transition-all duration-300 ease-in-out"
+              >
+                <FaRegHeart />
+              </button>
+            )}
           </h1>
           <p className="text-xs">
             Recipe sourced from{" "}
@@ -184,9 +218,9 @@ const RecipePage = () => {
                   <div>{nutrient.name}</div>
                 )}
                 <div>
-                  {nutrient.amount} {nutrient.unit}
+                  {Math.round(nutrient.amount)} {nutrient.unit}
                 </div>
-                <div>{nutrient.percentOfDailyNeeds}%</div>
+                <div>{Math.round(nutrient.percentOfDailyNeeds)}%</div>
               </li>
             ))}
           </ul>
