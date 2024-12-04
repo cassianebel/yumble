@@ -113,29 +113,29 @@ const RecipePage = ({ favorites, setFavorites }) => {
               )}
             </ul>
           </div>
-          <h1 className="text-3xl font-display text-zinc-700 text-center text-balance">
+          <h1 className="text-4xl font-display text-zinc-700 text-center text-balance">
             {recipe.title}{" "}
             {isFavorite ? (
               <button
                 onClick={removeFavorite}
-                className="text-apple-500 text-2xl hover:text-apple-400 hover:scale-110 transition-all duration-300 ease-in-out"
+                className="align-text-top text-apple-500 text-2xl p-1 rounded-full border-2 border-transparent focus:text-apple-400 focus:outline-none focus:border-apple-400 hover:text-apple-400 hover:scale-110 transition-all duration-300 ease-in-out"
               >
                 <FaHeart />
               </button>
             ) : (
               <button
                 onClick={addFavorite}
-                className="text-apple-500 text-2xl hover:text-apple-400 hover:scale-110 transition-all duration-300 ease-in-out"
+                className="align-text-top text-apple-500 text-2xl p-1 rounded-full border-2 border-transparent focus:text-apple-400 focus:outline-none focus:border-apple-400 hover:text-apple-400 hover:scale-110 transition-all duration-300 ease-in-out"
               >
                 <FaRegHeart />
               </button>
             )}
           </h1>
           <p className="text-xs">
-            Recipe sourced from{" "}
+            Recipe sourced from:
             <a
               href={recipe.sourceUrl}
-              className="text-apple-700 hover:text-apple-600 focus:text-apple-600"
+              className="text-apple-700 hover:text-apple-600 focus:text-apple-600 p-1 rounded-full border-2 border-transparent  focus:outline-none focus:border-apple-400 transition-all duration-300 ease-in-out"
             >
               {recipe.sourceName}
             </a>
