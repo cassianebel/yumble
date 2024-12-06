@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import RecipeCard from "./RecipeCard";
 import IngredientSearchForm from "./IngredientSearchForm";
 import Pagination from "./Pagination";
@@ -70,13 +71,19 @@ const IngredientSearchResults = () => {
     <div>
       <div className="m-5 max-w-xl md:mx-auto">
         <SearchChooser tab={tab} setTab={setTab} />
-        {tab === "ingredients" ? (
-          <IngredientSearchForm prevIngredients={ingredients} />
-        ) : tab === "nutrients" ? (
-          <NutrientSearchForm />
-        ) : (
-          <SearchForm />
-        )}
+        <TransitionGroup>
+          <CSSTransition key={tab} timeout={300} classNames="zoom">
+            <div>
+              {tab === "ingredients" ? (
+                <IngredientSearchForm prevIngredients={ingredients} />
+              ) : tab === "nutrients" ? (
+                <NutrientSearchForm />
+              ) : (
+                <SearchForm />
+              )}
+            </div>
+          </CSSTransition>
+        </TransitionGroup>
       </div>
       <h1 className="sr-only">Search Results</h1>
       {loading ? (

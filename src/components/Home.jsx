@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import RandomRecipes from "./randomRecipes";
 import SearchForm from "./SearchForm";
 import IngredientSearchForm from "./IngredientSearchForm";
@@ -13,13 +14,19 @@ const Home = ({ favorites, setFavorites }) => {
       <div>
         <SearchChooser tab={tab} setTab={setTab} />
         <div className="m-5 max-w-xl md:mx-auto">
-          {tab === "ingredients" ? (
-            <IngredientSearchForm />
-          ) : tab === "nutrients" ? (
-            <NutrientSearchForm />
-          ) : (
-            <SearchForm />
-          )}
+          <TransitionGroup>
+            <CSSTransition key={tab} timeout={300} classNames="zoom">
+              <div>
+                {tab === "ingredients" ? (
+                  <IngredientSearchForm />
+                ) : tab === "nutrients" ? (
+                  <NutrientSearchForm />
+                ) : (
+                  <SearchForm />
+                )}
+              </div>
+            </CSSTransition>
+          </TransitionGroup>
         </div>
       </div>
       {favorites.length > 0 && (
