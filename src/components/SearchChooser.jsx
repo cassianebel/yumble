@@ -1,10 +1,10 @@
 const SearchChooser = ({ tab, setTab }) => {
   return (
     <form className="mb-5">
-      <fieldset className="relative grid grid-cols-3 gap-2 bg-zinc-300 shadow-inner rounded-full p-1 max-w-max mx-auto text-center border-2 border-zinc-200 focus-within:border-apple-300">
+      <fieldset className="relative grid grid-cols-3 gap-2 bg-zinc-300 dark:bg-zinc-950 shadow-inner rounded-full p-1 max-w-max mx-auto text-center border-2 border-zinc-200 dark:border-zinc-900 focus-within:border-apple-300">
         <legend className="sr-only">Choose your method of search</legend>
         <div
-          className="absolute top-1 w-[113px] h-[36px] bg-zinc-100 shadow rounded-full transition-all duration-300 ease-in-out"
+          className="absolute top-1 w-[113px] h-[36px] bg-zinc-100 dark:bg-zinc-800 shadow rounded-full transition-all duration-300 ease-in-out"
           style={
             tab === "ingredients"
               ? { left: 125 }
@@ -25,7 +25,7 @@ const SearchChooser = ({ tab, setTab }) => {
           />
           <label
             htmlFor="tab-diet"
-            className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase text-zinc-600 peer-checked:text-apple-700 transition-all duration-300"
+            className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase text-zinc-600 dark:text-zinc-400 peer-checked:text-apple-600 transition-all duration-300"
           >
             Diets
           </label>
@@ -42,7 +42,7 @@ const SearchChooser = ({ tab, setTab }) => {
           />
           <label
             htmlFor="tab-ingredients"
-            className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase text-zinc-600 peer-checked:text-apple-600 transition-all duration-300"
+            className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase text-zinc-600 dark:text-zinc-400 peer-checked:text-apple-600 transition-all duration-300"
           >
             Ingredients
           </label>
@@ -59,7 +59,7 @@ const SearchChooser = ({ tab, setTab }) => {
           />
           <label
             htmlFor="tab-nutrients"
-            className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase text-zinc-600 peer-checked:text-apple-600 transition-all duration-300"
+            className="relative block w-full p-2 px-3 rounded-full cursor-pointer text-sm font-bold uppercase text-zinc-600 dark:text-zinc-400 peer-checked:text-apple-600 transition-all duration-300"
           >
             Nutrients
           </label>

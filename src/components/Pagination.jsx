@@ -4,7 +4,7 @@ const Pagination = ({ currentPage, totalPages, goToPage }) => {
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="bg-zinc-100 h-10 px-4 rounded-full shadow"
+        className="bg-zinc-100 dark:bg-zinc-800 h-10 px-4 rounded-full shadow"
       >
         Previous
       </button>
@@ -14,8 +14,8 @@ const Pagination = ({ currentPage, totalPages, goToPage }) => {
           onClick={() => goToPage(index + 1)}
           className={
             currentPage === index + 1
-              ? "bg-apple-300 w-10 h-10 rounded-full shadow-inner-sm transition-all duration-300 ease-in-out"
-              : "bg-zinc-100 w-10 h-10 rounded-full shadow transition-all duration-300 ease-in-out"
+              ? "bg-apple-300 dark:bg-apple-900 w-10 h-10 rounded-full shadow-inner-sm transition-all duration-300 ease-in-out"
+              : "bg-zinc-100 dark:bg-zinc-800 w-10 h-10 rounded-full shadow transition-all duration-300 ease-in-out"
           }
         >
           {index + 1}
@@ -24,7 +24,7 @@ const Pagination = ({ currentPage, totalPages, goToPage }) => {
       <button
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="bg-zinc-100 h-10 px-4 rounded-full shadow"
+        className="bg-zinc-100 dark:bg-zinc-800 h-10 px-4 rounded-full shadow"
       >
         Next
       </button>

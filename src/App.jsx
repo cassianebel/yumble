@@ -9,9 +9,11 @@ import FavoritesPage from "./components/FavoritesPage";
 import SearchPage from "./components/SearchPage";
 import { FaHeart } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
+import { CgDarkMode } from "react-icons/cg";
 import "./App.css";
 
 function App() {
+  const [theme, setTheme] = useState("light");
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -20,9 +22,26 @@ function App() {
     setFavorites(storedFavorites);
   }, []);
 
+  useEffect(() => {
+    if (localStorage.getItem("theme")) {
+      setTheme(localStorage.getItem("theme"));
+    } else if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      setTheme("dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
   return (
-    <>
-      <header className="bg-zinc-100 shadow ">
+    <div className={theme}>
+      <header className="bg-zinc-100 shadow dark:bg-zinc-800">
         <div className="max-w-screen-2xl mx-auto flex justify-between items-center">
           <NavLink
             to="/"
@@ -43,10 +62,16 @@ function App() {
             >
               <FaHeart />
             </NavLink>
+            <button
+              onClick={toggleTheme}
+              className="text-zinc-700 p-2 rounded-full border-2 border-transparent focus:outline-none focus:border-apple-400 transition-all duration-200 ease-in-out dark:text-zinc-300 "
+            >
+              <CgDarkMode />
+            </button>
           </div>
         </div>
       </header>
-      <main className="mt-8">
+      <main className="min-h-screen py-8 bg-zinc-200 text-zinc-600 dark:bg-zinc-900 dark:text-zinc-300 transition-all duration-200 ease-in-out">
         <Routes>
           <Route
             path="/"
@@ -79,7 +104,7 @@ function App() {
           <Route path="/newsearch" element={<SearchPage />} />
         </Routes>
       </main>
-    </>
+    </div>
   );
 }
 

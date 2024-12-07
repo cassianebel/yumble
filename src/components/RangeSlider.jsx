@@ -65,7 +65,7 @@ const RangeSlider = ({ min, max, step, initialValues, onValuesChange }) => {
             type="number"
             value={values[0]}
             onChange={(e) => handleInputChange(0, e.target.value)}
-            className="w-20 p-1 rounded-sm mx-2"
+            className="w-20 p-1 rounded-sm mx-2 dark:bg-zinc-900"
           />
         </label>
         <label>
@@ -74,7 +74,7 @@ const RangeSlider = ({ min, max, step, initialValues, onValuesChange }) => {
             type="number"
             value={values[1]}
             onChange={(e) => handleInputChange(1, e.target.value)}
-            className="w-20 p-1 rounded-sm mx-2"
+            className="w-20 p-1 rounded-sm mx-2 dark:bg-zinc-900"
           />
         </label>
       </div>

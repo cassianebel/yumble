@@ -55,13 +55,15 @@ const NutrientSearchForm = ({
           setQuery={setQuery}
           placeholder="Search for recipes..."
         />
-        <p className="text-center my-2 mb-4 text-sm text-zinc-600 text-balance">
+        <p className="text-center my-2 mb-4 text-sm text-zinc-600 dark:text-zinc-400 text-balance">
           Adjust the values to fit your macro nutrient goals
         </p>
         <fieldset>
           <legend className="w-full m-3 text-center">
             <span className="font-bold">Calories</span>{" "}
-            <span className="text-xs text-zinc-600">(kcals)</span>
+            <span className="text-xs text-zinc-600 dark:text-zinc-400">
+              (kcals)
+            </span>
           </legend>
           <RangeSlider
             min={0}
@@ -74,7 +76,9 @@ const NutrientSearchForm = ({
         <fieldset>
           <legend className="w-full m-3 text-center">
             <span className="font-bold">Carbs</span>{" "}
-            <span className="text-xs text-zinc-600">(grams)</span>
+            <span className="text-xs text-zinc-600 dark:text-zinc-400">
+              (grams)
+            </span>
           </legend>
           <RangeSlider
             min={0}
@@ -87,7 +91,9 @@ const NutrientSearchForm = ({
         <fieldset>
           <legend className="w-full m-3 text-center">
             <span className="font-bold">Protein</span>{" "}
-            <span className="text-xs text-zinc-600">(grams)</span>
+            <span className="text-xs text-zinc-600 dark:text-zinc-400">
+              (grams)
+            </span>
           </legend>
           <RangeSlider
             min={0}
@@ -100,7 +106,9 @@ const NutrientSearchForm = ({
         <fieldset>
           <legend className="w-full m-3 text-center">
             <span className="font-bold">Fat</span>{" "}
-            <span className="text-xs text-zinc-600">(grams)</span>
+            <span className="text-xs text-zinc-600 dark:text-zinc-400">
+              (grams)
+            </span>
           </legend>
           <RangeSlider
             min={0}
