@@ -13,7 +13,6 @@ const NutrientSearchResults = () => {
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
   const [totalResults, setTotalResults] = useState(null);
-  //const [displayedResults, setDisplayedResults] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const resultsRef = useRef(null);
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
@@ -34,22 +33,17 @@ const NutrientSearchResults = () => {
   const nodeRefs = useRef({});
 
   useEffect(() => {
-    console.log("Search params:", calories, carbs, protein, fat);
-    const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-    const offset = (currentPage - 1) * 10;
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&minCalories=${calories[0]}&maxCalories=${calories[1]}&minCarbs=${carbs[0]}&maxCarbs=${carbs[1]}&minProtein=${protein[0]}&maxProtein=${protein[1]}&minFat=${fat[0]}&maxFat=${fat[1]}&offset=${offset}&apiKey=${apiKey}`;
-
-    fetch(url)
-      .then((response) => {
+    const fetchNutrientSearchResults = async () => {
+      try {
+        const offset = (currentPage - 1) * 10;
+        const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&minCalories=${calories[0]}&maxCalories=${calories[1]}&minCarbs=${carbs[0]}&maxCarbs=${carbs[1]}&minProtein=${protein[0]}&maxProtein=${protein[1]}&minFat=${fat[0]}&maxFat=${fat[1]}&offset=${offset}&apiKey=${apiKey}`;
+        const response = await fetch(url);
         if (!response.ok) {
-          return response.text().then((errorText) => {
-            console.error("Error response body:", errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-          });
+          const errorText = await response.text();
+          console.error("Error response body:", errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => {
+        const data = await response.json();
         setResults(data.results);
         setTotalResults(data.totalResults);
         setLoading(false);
@@ -59,15 +53,13 @@ const NutrientSearchResults = () => {
             block: "start",
           });
         }
-      })
-      .catch((error) => console.error("Fetch error:", error));
-  }, [query, calories, carbs, protein, fat]);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
 
-  // useEffect(() => {
-  //   const indexOfLastItem = currentPage * itemsPerPage;
-  //   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  //   setDisplayedResults(results.slice(indexOfFirstItem, indexOfLastItem));
-  // }, [results, currentPage]);
+    fetchNutrientSearchResults();
+  }, [query, calories, carbs, protein, fat]);
 
   const totalPages = Math.ceil(totalResults / 10);
 
