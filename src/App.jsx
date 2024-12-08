@@ -41,7 +41,7 @@ function App() {
 
   return (
     <div className={theme}>
-      <header className="bg-zinc-100 shadow dark:bg-zinc-800">
+      <header className="bg-zinc-100 shadow dark:bg-zinc-900">
         <div className="max-w-[1700px] mx-auto flex justify-between items-center">
           <NavLink
             to="/"
@@ -74,7 +74,7 @@ function App() {
           </div>
         </div>
       </header>
-      <main className="min-h-screen py-8 bg-zinc-200 text-zinc-600 dark:bg-zinc-900 dark:text-zinc-300 transition-all duration-200 ease-in-out">
+      <main className="min-h-screen py-8 bg-gradient-to-b from-zinc-200 to-zinc-300 text-zinc-600 dark:from-zinc-800 dark:to-zinc-950 dark:text-zinc-300 transition-all duration-200 ease-in-out">
         <Routes>
           <Route
             path="/"
