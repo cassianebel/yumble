@@ -25,20 +25,16 @@ const IngredientSearchResults = () => {
   const nodeRefs = useRef({});
 
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=100&apiKey=${apiKey}`;
-
-    fetch(url)
-      .then((response) => {
+    const fetchIngredientSearchResults = async () => {
+      try {
+        const url = `/.netlify/functions/fetchIngredientSearchResults?ingredients=${ingredients}`;
+        const response = await fetch(url);
         if (!response.ok) {
-          return response.text().then((errorText) => {
-            console.error("Error response body:", errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-          });
+          const errorText = await response.text();
+          console.error("Error response body:", errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => {
+        const data = await response.json();
         setResults(data);
         setLoading(false);
         if (resultsRef.current) {
@@ -47,8 +43,12 @@ const IngredientSearchResults = () => {
             block: "start",
           });
         }
-      })
-      .catch((error) => console.error("Fetch error:", error));
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchIngredientSearchResults();
   }, [ingredients]);
 
   useEffect(() => {
