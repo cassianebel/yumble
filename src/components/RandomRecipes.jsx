@@ -9,21 +9,22 @@ const RandomRecipes = () => {
   const [randomRecipes, setRandomRecipes] = useState([]);
 
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-    const url = `https://api.spoonacular.com/recipes/random?number=20&apiKey=${apiKey}`;
-
-    fetch(url)
-      .then((response) => {
+    const fetchRandomRecipes = async () => {
+      try {
+        const response = await fetch("/.netlify/functions/fetchRandomRecipes");
         if (!response.ok) {
-          return response.text().then((errorText) => {
-            console.error("Error response body:", errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-          });
+          const errorText = await response.text();
+          console.error("Error response body:", errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => setRandomRecipes(data.recipes))
-      .catch((error) => console.error("Fetch error:", error));
+        const data = await response.json();
+        setRandomRecipes(data.recipes);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchRandomRecipes();
   }, []);
 
   const scrollRow = (direction) => {

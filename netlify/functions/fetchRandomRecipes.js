@@ -1,27 +1,31 @@
 const fetch = require("node-fetch");
 
 exports.handler = async (event, context) => {
+  const apiKey = process.env.SPOONACULAR_API_KEY;
+  const url = `https://api.spoonacular.com/recipes/random?number=20&apiKey=${apiKey}`;
+
   try {
-    const apiKey = process.env.EDAMAM_API_KEY;
-    const appId = process.env.EDAMAM_APP_ID;
-    const url = `https://api.edamam.com/api/recipes/v2?type=public&random=true&app_id=${appId}&app_key=${apiKey}`;
-
     const response = await fetch(url);
-    const data = await response.json();
-
     if (!response.ok) {
-      throw new Error(`Error fetching recipes: ${data.message}`);
+      const errorText = await response.text();
+      console.error("Error response body:", errorText);
+      return {
+        statusCode: response.status,
+        body: JSON.stringify({
+          error: `HTTP error! status: ${response.status}`,
+        }),
+      };
     }
-
+    const data = await response.json();
     return {
       statusCode: 200,
-      body: JSON.stringify(data),
+      body: JSON.stringify(data.recipes),
     };
   } catch (error) {
-    console.error(error);
+    console.error("Fetch error:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Failed to fetch recipes" }),
+      body: JSON.stringify({ error: "Internal Server Error" }),
     };
   }
 };
