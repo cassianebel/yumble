@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo, useRef, createRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import RecipeCard from "./RecipeCard";
@@ -31,6 +31,7 @@ const NutrientSearchResults = () => {
     [searchParams]
   );
   const fat = useMemo(() => searchParams.get("fat").split(","), [searchParams]);
+  const nodeRefs = useRef({});
 
   useEffect(() => {
     console.log("Search params:", calories, carbs, protein, fat);
@@ -85,13 +86,25 @@ const NutrientSearchResults = () => {
     });
   };
 
+  const getNodeRef = (key) => {
+    if (!nodeRefs.current[key]) {
+      nodeRefs.current[key] = createRef();
+    }
+    return nodeRefs.current[key];
+  };
+
   return (
     <>
       <div className="m-5 max-w-xl md:mx-auto">
         <SearchChooser tab={tab} setTab={setTab} />
         <TransitionGroup>
-          <CSSTransition key={tab} timeout={300} classNames="zoom">
-            <div>
+          <CSSTransition
+            key={tab}
+            timeout={300}
+            classNames="zoom"
+            nodeRef={getNodeRef(tab)}
+          >
+            <div ref={getNodeRef(tab)}>
               {tab === "ingredients" ? (
                 <IngredientSearchForm />
               ) : tab === "nutrients" ? (

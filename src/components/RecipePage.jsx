@@ -79,16 +79,12 @@ const RecipePage = ({ favorites, setFavorites }) => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-[1700px] mx-auto">
       <div className="grid md:grid-cols-2 ">
-        <div className="flex justify-center items-center md:mx-5">
-          <img
-            src={recipe.image}
-            alt={recipe.title}
-            className="md:rounded-2xl "
-          />
+        <div className="flex justify-center items-center m-6">
+          <img src={recipe.image} alt={recipe.title} className="rounded-2xl " />
         </div>
-        <div className="flex flex-col gap-6 justify-center items-center m-5">
+        <div className="flex flex-col gap-6 justify-center items-center m-6">
           <div>
             <ul className="flex flex-wrap justify-center items-center gap-4">
               {recipe.dairyFree && (

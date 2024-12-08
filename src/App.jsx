@@ -42,7 +42,7 @@ function App() {
   return (
     <div className={theme}>
       <header className="bg-zinc-100 shadow dark:bg-zinc-800">
-        <div className="max-w-screen-2xl mx-auto flex justify-between items-center">
+        <div className="max-w-[1700px] mx-auto flex justify-between items-center">
           <NavLink
             to="/"
             className="inline-block font-display text-apple-500 text-3xl m-4 px-2 rounded-full border-2 border-transparent rotate-[-6deg] hover:rotate-0 hover:text-apple-400 focus:outline-none focus:border-apple-400 focus:rotate-0 focus:text-apple-400  transition-all duration-200 ease-in-out"
@@ -55,18 +55,21 @@ function App() {
               className="text-apple-500 rotate-12 p-2 rounded-full border-2 border-transparent hover:text-apple-400 hover:rotate-0 focus:text-apple-400 focus:rotate-0 focus:outline-none focus:border-apple-400 transition-all duration-200 ease-in-out"
             >
               <IoSearch />
+              <span className="sr-only">Search</span>
             </NavLink>
             <NavLink
               to="/favorites"
               className="text-apple-500 rotate-12 p-2 rounded-full border-2 border-transparent hover:text-apple-400 hover:rotate-0 focus:text-apple-400 focus:rotate-0 focus:outline-none focus:border-apple-400 transition-all duration-200 ease-in-out"
             >
               <FaHeart />
+              <span className="sr-only">Favorites</span>
             </NavLink>
             <button
               onClick={toggleTheme}
               className="text-zinc-700 p-2 rounded-full border-2 border-transparent focus:outline-none focus:border-apple-400 transition-all duration-200 ease-in-out dark:text-zinc-300 "
             >
               <CgDarkMode />
+              <span className="sr-only">Toggle Theme</span>
             </button>
           </div>
         </div>

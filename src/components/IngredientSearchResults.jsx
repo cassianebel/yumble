@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo, useRef, createRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import RecipeCard from "./RecipeCard";
@@ -22,6 +22,7 @@ const IngredientSearchResults = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const ingredients = params.get("ingredients");
+  const nodeRefs = useRef({});
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
@@ -67,13 +68,25 @@ const IngredientSearchResults = () => {
     });
   };
 
+  const getNodeRef = (key) => {
+    if (!nodeRefs.current[key]) {
+      nodeRefs.current[key] = createRef();
+    }
+    return nodeRefs.current[key];
+  };
+
   return (
     <div>
       <div className="m-5 max-w-xl md:mx-auto">
         <SearchChooser tab={tab} setTab={setTab} />
         <TransitionGroup>
-          <CSSTransition key={tab} timeout={300} classNames="zoom">
-            <div>
+          <CSSTransition
+            key={tab}
+            timeout={300}
+            classNames="zoom"
+            nodeRef={getNodeRef(tab)}
+          >
+            <div ref={getNodeRef(tab)}>
               {tab === "ingredients" ? (
                 <IngredientSearchForm prevIngredients={ingredients} />
               ) : tab === "nutrients" ? (
