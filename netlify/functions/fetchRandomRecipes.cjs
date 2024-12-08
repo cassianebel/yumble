@@ -1,5 +1,6 @@
+const fetch = require("node-fetch");
+
 exports.handler = async (event, context) => {
-  const fetch = (await import("node-fetch")).default;
   const apiKey = process.env.SPOONACULAR_API_KEY;
   const url = `https://api.spoonacular.com/recipes/random?number=20&apiKey=${apiKey}`;
 
