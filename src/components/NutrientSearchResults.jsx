@@ -36,7 +36,7 @@ const NutrientSearchResults = () => {
     const fetchNutrientSearchResults = async () => {
       try {
         const offset = (currentPage - 1) * 10;
-        const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&minCalories=${calories[0]}&maxCalories=${calories[1]}&minCarbs=${carbs[0]}&maxCarbs=${carbs[1]}&minProtein=${protein[0]}&maxProtein=${protein[1]}&minFat=${fat[0]}&maxFat=${fat[1]}&offset=${offset}&apiKey=${apiKey}`;
+        const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&minCalories=${calories[0]}&maxCalories=${calories[1]}&minCarbs=${carbs[0]}&maxCarbs=${carbs[1]}&minProtein=${protein[0]}&maxProtein=${protein[1]}&minFat=${fat[0]}&maxFat=${fat[1]}&offset=${offset}`;
         const response = await fetch(url);
         if (!response.ok) {
           const errorText = await response.text();
