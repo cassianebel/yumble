@@ -18,7 +18,7 @@ const RandomRecipes = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setRandomRecipes(data.recipes);
+        setRandomRecipes(data);
       } catch (error) {
         console.error("Fetch error:", error);
       }
