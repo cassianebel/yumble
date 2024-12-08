@@ -1,6 +1,6 @@
 import { useState, useRef, createRef } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import RandomRecipes from "./randomRecipes";
+import RandomRecipes from "./RandomRecipes";
 import SearchForm from "./SearchForm";
 import IngredientSearchForm from "./IngredientSearchForm";
 import NutrientSearchForm from "./NutrientSearchForm";
