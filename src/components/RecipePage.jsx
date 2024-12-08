@@ -11,41 +11,42 @@ const RecipePage = ({ favorites, setFavorites }) => {
   const [instructions, setInstructions] = useState([]);
 
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-    const recipeUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=true&apiKey=${apiKey}`;
-    const instructionsUrl = `https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${apiKey}`;
-
-    fetch(recipeUrl)
-      .then((response) => {
+    const fetchRecipe = async () => {
+      try {
+        const url = `/.netlify/functions/fetchRecipe?recipeId=${recipeId}`;
+        const response = await fetch(url);
         if (!response.ok) {
-          return response.text().then((errorText) => {
-            console.error("Error response body:", errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-          });
+          const errorText = await response.text();
+          console.error("Error response body:", errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => {
+        const data = await response.json();
         setRecipe(data);
         setLoading(false);
         window.scrollTo(0, 0);
-      })
-      .catch((error) => console.error("Fetch error:", error));
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
 
-    fetch(instructionsUrl)
-      .then((response) => {
+    const fetchInstructions = async () => {
+      try {
+        const url = `/.netlify/functions/fetchInstructions?recipeId=${recipeId}`;
+        const response = await fetch(url);
         if (!response.ok) {
-          return response.text().then((errorText) => {
-            console.error("Error response body:", errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-          });
+          const errorText = await response.text();
+          console.error("Error response body:", errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => {
+        const data = await response.json();
         setInstructions(data[0].steps);
-      })
-      .catch((error) => console.error("Fetch error:", error));
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchRecipe();
+    fetchInstructions();
   }, [recipeId]);
 
   const healthScore = Math.round(recipe.healthScore);
