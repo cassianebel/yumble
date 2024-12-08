@@ -27,21 +27,17 @@ const SearchResults = () => {
   const nodeRefs = useRef({});
 
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
-    const offset = (currentPage - 1) * 10;
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&offset=${offset}${dietParam}&apiKey=${apiKey}`;
-
-    fetch(url)
-      .then((response) => {
+    const fetchSearchResults = async () => {
+      try {
+        const offset = (currentPage - 1) * 10;
+        const url = `/.netlify/functions/fetchSearchResults?query=${query}&offset=${offset}${dietParam}`;
+        const response = await fetch(url);
         if (!response.ok) {
-          return response.text().then((errorText) => {
-            console.error("Error response body:", errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-          });
+          const errorText = await response.text();
+          console.error("Error response body:", errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => {
+        const data = await response.json();
         setResults(data.results);
         setTotalResults(data.totalResults);
         setLoading(false);
@@ -51,8 +47,12 @@ const SearchResults = () => {
             block: "start",
           });
         }
-      })
-      .catch((error) => console.error("Fetch error:", error));
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchSearchResults();
   }, [query, currentPage, diets]);
 
   const totalPages = Math.ceil(totalResults / 10);
