@@ -17,7 +17,7 @@ exports.handler = async (event) => {
 
     const url = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(
       query
-    )}&offset=${offset}${dietParam}&number=100&apiKey=${apiKey}`;
+    )}&offset=${offset}${dietParam}&apiKey=${apiKey}`;
 
     const response = await fetch(url);
 

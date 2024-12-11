@@ -24,7 +24,7 @@ exports.handler = async (event) => {
 
     const apiKey = process.env.SPOONACULAR_API_KEY;
 
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&minCalories=${minCalories}&maxCalories=${maxCalories}&minCarbs=${minCarbs}&maxCarbs=${maxCarbs}&minProtein=${minProtein}&maxProtein=${maxProtein}&minFat=${minFat}&maxFat=${maxFat}&offset=${offset}&number=100&apiKey=${apiKey}`;
+    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&minCalories=${minCalories}&maxCalories=${maxCalories}&minCarbs=${minCarbs}&maxCarbs=${maxCarbs}&minProtein=${minProtein}&maxProtein=${maxProtein}&minFat=${minFat}&maxFat=${maxFat}&offset=${offset}&apiKey=${apiKey}`;
 
     const response = await fetch(url);
 
