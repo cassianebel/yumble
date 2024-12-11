@@ -48,7 +48,7 @@ const Home = ({ favorites, setFavorites }) => {
           <FavoritesList favorites={favorites} setFavorites={setFavorites} />
         </div>
       )}
-      <div className="m-5 mb-20">
+      <div className="m-5 mb-36">
         <RandomRecipes />
       </div>
     </div>
