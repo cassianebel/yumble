@@ -6,8 +6,9 @@ Try it out here: https://yumble.netlify.app/
 
 ## 🚀 Features
 
+- Dietary Preferences Search: Filter recipes based on dietary restrictions or preferences (i.e., vegan, gluten-free).
 - Ingredient Search: Enter ingredients you have, and Yumble will suggest recipes you can make.
-- Dietary Preferences: Filter recipes based on dietary restrictions or preferences (e.g., vegan, gluten-free).
+- Macronutrients Search: Search within you macronutrient goals (i.e. calories, fat, carbs, protien).
 - Save Favorites: Bookmark your favorite recipes for easy access later.
 - Detailed Recipe Pages: Get step-by-step instructions, ingredient lists, and nutritional info.
 
